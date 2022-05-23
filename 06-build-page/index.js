@@ -23,14 +23,14 @@ async function copyDir(folder, route) {
 }
 
 async function createHtml(components) {
-  const readFileTemplates = new fs.ReadStream(path.join(__dirname, 'template.html'), 'utf-8');
+  const readFileTemplates = fs.createReadStream(path.join(__dirname, 'template.html'), 'utf-8');
   let fileComponents = await fs.promises.readdir(components, {withFileTypes: true});
   let data = '';
   readFileTemplates.on('data', chunk => data += chunk);
   readFileTemplates.on('end', async () => {
     fileComponents.forEach(file => { 
       if (file.isFile() === true) {
-        const readFile = new fs.ReadStream(path.join(__dirname, 'components', file.name), 'utf-8');
+        const readFile = fs.createReadStream(path.join(__dirname, 'components', file.name), 'utf-8');
         const fileName = file.name.split('.')[0];
         let compData = '';
         readFile.on('data', chunk => compData += chunk);
@@ -55,7 +55,7 @@ async function createCss(styles) {
       let folderFile = path.join(styles, file.name);
       if (file.isFile() && path.extname(folderFile) === '.css') {
         const arr = [];
-        let readFile = new fs.ReadStream(folderFile, 'utf-8');
+        let readFile = fs.createReadStream(folderFile, 'utf-8');
         readFile.on('data', chunk => arr.push(chunk));
         readFile.on('end', () => arr.forEach(elem => streamCss.write(`${elem}\n`)));
       }
