@@ -45,7 +45,7 @@ async function createHtml(components) {
 }
 
 async function createCss(styles) {
-  const streamCss = new fs.createWriteStream(path.join(__dirname, 'project-dist', 'style.css'));
+  const streamCss = fs.createWriteStream(path.join(__dirname, 'project-dist', 'style.css'));
 
   fs.readdir(styles, {withFileTypes: true}, (err, files) => {
     if (err) {

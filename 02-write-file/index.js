@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
-const stream = new fs.createWriteStream(path.join(__dirname, 'text.txt'));
+const stream = fs.createWriteStream(path.join(__dirname, 'text.txt'));
 
 const rl = readline.createInterface(process.stdin, process.stdout);
 rl.write('Hello, press your message, please: \n');
