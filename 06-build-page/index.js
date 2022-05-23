@@ -36,7 +36,7 @@ async function createHtml(components) {
         readFile.on('data', chunk => compData += chunk);
         readFile.on('end', () => {
           data = data.replace(`{{${fileName}}}`, compData);
-          const streamHtml = new fs.createWriteStream(path.join(__dirname, 'project-dist', 'index.html'));
+          const streamHtml = fs.createWriteStream(path.join(__dirname, 'project-dist', 'index.html'));
           streamHtml.write(data);
         });
       }
